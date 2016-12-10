@@ -1,0 +1,8 @@
+
+.gitignore
+.gradle/
+.idea/
+contract/build/
+out/
+spider/build/
+

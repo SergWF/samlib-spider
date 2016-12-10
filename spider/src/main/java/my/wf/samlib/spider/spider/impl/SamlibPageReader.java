@@ -15,12 +15,12 @@ import java.util.regex.Pattern;
 
 public class SamlibPageReader implements PageReader {
 
-    public static final String DEFAULT_ENCODING = "windows-1251";
+    private static final String DEFAULT_ENCODING = "windows-1251";
     public static final String LINK_SUFFIX = "indextitle.shtml";
     private static final Logger logger = LoggerFactory.getLogger(SamlibPageParser.class);
     private static final Pattern charsetPattern = Pattern.compile("text/html;\\s+charset=([^\\s]+)\\s*");
 
-    protected static String getCharset(String contentType, String encoding) {
+    private String getCharset(String contentType, String encoding) {
         if (null == contentType) {
             return encoding;
         }
@@ -42,12 +42,11 @@ public class SamlibPageReader implements PageReader {
     }
 
     private String readPageByLink(String link) throws IOException {
-        logger.debug("read by link [{}]", link);
         URL url = new URL(link);
         URLConnection con = url.openConnection();
         StringBuilder buf = new StringBuilder();
         try (Reader r = new InputStreamReader(con.getInputStream(),
-                getCharset(con.getContentType(), DEFAULT_ENCODING));) {
+                getCharset(con.getContentType(), DEFAULT_ENCODING))) {
             while (true) {
                 int ch = r.read();
                 if (ch < 0) { break; }

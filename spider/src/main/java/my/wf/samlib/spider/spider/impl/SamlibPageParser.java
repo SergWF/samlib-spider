@@ -68,12 +68,8 @@ public class SamlibPageParser implements PageParser {
     }
 
     private String removeSpaces(String page) {
-        String s = Pattern.compile("\\s+")
-                          .matcher(page)
-                          .replaceAll(" ");
-        return Pattern.compile(">\\s+<")
-                      .matcher(s)
-                      .replaceAll("><");
+        String s = Pattern.compile("\\s+").matcher(page).replaceAll(" ");
+        return Pattern.compile(">\\s+<").matcher(s).replaceAll("><");
     }
 
     private WritingData fromMatcher(Matcher matcher) {

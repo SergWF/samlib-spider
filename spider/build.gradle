@@ -1,4 +1,5 @@
 dependencies {
     compile project(":contract")
     compile group: 'commons-io', name: 'commons-io', version: '2.5'
+    testCompile group: 'org.mock-server', name: 'mockserver-netty', version: '3.10.4'
 }
