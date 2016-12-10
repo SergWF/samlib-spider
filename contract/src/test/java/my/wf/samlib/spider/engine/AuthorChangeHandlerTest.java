@@ -53,8 +53,7 @@ public class AuthorChangeHandlerTest {
         w3.setDescription("descr3");
         w3.setLastUpdated(w3Upd);
 
-        author.getWritings()
-              .addAll(Arrays.asList(w1, w2, w3));
+        author.getWritings().addAll(Arrays.asList(w1, w2, w3));
 
         d1 = new WritingData();
         d1.setUrl(w1.getUrl());
@@ -91,16 +90,12 @@ public class AuthorChangeHandlerTest {
         data.setSize("44k");
 
         Writing writing = authorChangeHandler.handleWritingUpdate(data);
-        Assert.assertThat(writing,
-                Matchers.allOf(
-                        Matchers.hasProperty("url", Matchers.is("author/url4")),
-                        Matchers.hasProperty("name", Matchers.is("data name4")),
-                        Matchers.hasProperty("size", Matchers.is("44k")),
-                        Matchers.hasProperty("description", Matchers.is("data descr4")),
-                        Matchers.hasProperty("lastUpdated", Matchers.is(upd)),
-                        Matchers.hasProperty("changes", Matchers.contains(Changes.NEW))
-                )
-        );
+        Assert.assertThat(writing, Matchers.allOf(Matchers.hasProperty("url", Matchers.is("author/url4")),
+                Matchers.hasProperty("name", Matchers.is("data name4")),
+                Matchers.hasProperty("size", Matchers.is("44k")),
+                Matchers.hasProperty("description", Matchers.is("data descr4")),
+                Matchers.hasProperty("lastUpdated", Matchers.is(upd)),
+                Matchers.hasProperty("changes", Matchers.contains(Changes.NEW))));
     }
 
     @Test
@@ -112,17 +107,12 @@ public class AuthorChangeHandlerTest {
         data.setSize("22k");
 
         Writing writing = authorChangeHandler.handleWritingUpdate(data);
-        Assert.assertThat(writing,
-                Matchers.allOf(
-                        Matchers.hasProperty("url", Matchers.is("url2")),
-                        Matchers.hasProperty("name", Matchers.is("data name2")),
-                        Matchers.hasProperty("size", Matchers.is("22k")),
-                        Matchers.hasProperty("description", Matchers.is("data descr2")),
-                        Matchers.hasProperty("lastUpdated", Matchers.is(upd)),
-                        Matchers.hasProperty("changes",
-                                Matchers.containsInAnyOrder(Changes.NAME, Changes.SIZE, Changes.DESCRIPTION))
-                )
-        );
+        Assert.assertThat(writing, Matchers.allOf(Matchers.hasProperty("url", Matchers.is("url2")),
+                Matchers.hasProperty("name", Matchers.is("data name2")),
+                Matchers.hasProperty("size", Matchers.is("22k")),
+                Matchers.hasProperty("description", Matchers.is("data descr2")),
+                Matchers.hasProperty("lastUpdated", Matchers.is(upd)), Matchers.hasProperty("changes",
+                        Matchers.containsInAnyOrder(Changes.NAME, Changes.SIZE, Changes.DESCRIPTION))));
     }
 
     @Test
@@ -134,13 +124,9 @@ public class AuthorChangeHandlerTest {
         data.setSize(w2.getSize());
 
         Writing writing = authorChangeHandler.handleWritingUpdate(data);
-        Assert.assertThat(writing,
-                Matchers.allOf(
-                        Matchers.hasProperty("url", Matchers.is("url2")),
-                        Matchers.hasProperty("lastUpdated", Matchers.is(w2Upd)),
-                        Matchers.hasProperty("changes", Matchers.empty())
-                )
-        );
+        Assert.assertThat(writing, Matchers.allOf(Matchers.hasProperty("url", Matchers.is("url2")),
+                Matchers.hasProperty("lastUpdated", Matchers.is(w2Upd)),
+                Matchers.hasProperty("changes", Matchers.empty())));
 
     }
 }

@@ -40,32 +40,25 @@ public class SpiderEngine {
         AuthorChangeHandler authorChangeHandler = getAuthorChangeHandler(author);
         Set<WritingData> writingDatas = spider.readAndParseAuthorsPage(author.getUrl());
         logger.debug("found {} writings on the page", writingDatas.size());
-        writingDatas.stream()
-                    .forEach(authorChangeHandler::handleWritingUpdate);
+        writingDatas.stream().forEach(authorChangeHandler::handleWritingUpdate);
         authorChangeHandler.handleDeleted(author, writingDatas);
         logUpdateStatistic(author);
         return authorStorage.saveAuthor(author);
     }
 
-    void logUpdateStatistic(Author author){
-        int newWritings = (int) author.getWritings()
-                                      .stream()
-                                      .filter(writing -> writing.getChanges()
-                                                                .contains(Changes.NEW))
-                                      .count();
-        int updatedWritings = (int) author.getWritings()
-                                          .stream()
-                                          .filter(writing -> !writing.getChanges()
-                                                                     .isEmpty())
-                                          .count();
+    void logUpdateStatistic(Author author) {
+        int newWritings =
+                (int) author.getWritings().stream().filter(writing -> writing.getChanges().contains(Changes.NEW))
+                            .count();
+        int updatedWritings =
+                (int) author.getWritings().stream().filter(writing -> !writing.getChanges().isEmpty()).count();
         if (updatedWritings > 0) {
             logger.info("author {}: updated {} with {} new", author.getName(), updatedWritings, newWritings);
         }
     }
 
     boolean checkServerAccessibility() {
-        if (null == accessCheckPageUrl || accessCheckPageUrl.trim()
-                                                            .isEmpty()) {
+        if (null == accessCheckPageUrl || accessCheckPageUrl.trim().isEmpty()) {
             logger.warn("URL for checking server not found");
             return true;
         } else {
@@ -88,8 +81,7 @@ public class SpiderEngine {
 
     void updateAllAuthors() {
         logger.info("start author checking");
-        authorStorage.getAllAuthors()
-                     .forEach(this::updateAuthor);
+        authorStorage.getAllAuthors().forEach(this::updateAuthor);
         logger.info("end author checking");
     }
 

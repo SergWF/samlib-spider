@@ -15,8 +15,8 @@ import java.util.regex.Pattern;
 
 public class SamlibPageReader implements PageReader {
 
-    private static final String DEFAULT_ENCODING = "windows-1251";
     public static final String LINK_SUFFIX = "indextitle.shtml";
+    private static final String DEFAULT_ENCODING = "windows-1251";
     private static final Logger logger = LoggerFactory.getLogger(SamlibPageParser.class);
     private static final Pattern charsetPattern = Pattern.compile("text/html;\\s+charset=([^\\s]+)\\s*");
 

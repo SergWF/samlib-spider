@@ -35,10 +35,7 @@ public class Author {
     }
 
     public LocalDateTime getLastUpdated() {
-        return writings.stream()
-                       .map(Writing::getLastUpdated)
-                       .max(LocalDateTime::compareTo)
-                       .orElse(null);
+        return writings.stream().map(Writing::getLastUpdated).max(LocalDateTime::compareTo).orElse(null);
     }
 
     @Override
@@ -59,8 +56,6 @@ public class Author {
 
     @Override
     public String toString() {
-        return "Author{" +
-                "url='" + url + '\'' +
-                '}';
+        return "Author{" + "url='" + url + '\'' + '}';
     }
 }

@@ -80,23 +80,17 @@ public class Writing {
 
         Writing writing = (Writing) o;
 
-        return url != null
-                ? url.equals(writing.url)
-                : super.equals(o);
+        return url != null ? url.equals(writing.url) : super.equals(o);
 
     }
 
     @Override
     public int hashCode() {
-        return url != null
-                ? url.hashCode()
-                : super.hashCode();
+        return url != null ? url.hashCode() : super.hashCode();
     }
 
     @Override
     public String toString() {
-        return "Writing{" +
-                "url='" + url + '\'' +
-                '}';
+        return "Writing{" + "url='" + url + '\'' + '}';
     }
 }

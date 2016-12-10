@@ -11,7 +11,7 @@ public class CronJobConfig {
     private boolean cronJobEnabled;
 
     @Scheduled()
-    public void doScheduledUpdate(){
+    public void doScheduledUpdate() {
 
     }
 }

@@ -53,12 +53,7 @@ public class IpCheckState {
 
     @Override
     public String toString() {
-        return "IpCheckState{" +
-                "ip='" + ip + '\'' +
-                ", inSpamList=" + inSpamList +
-                ", blocked=" + blocked +
-                ", otherError=" + otherError +
-                ", info='" + info + '\'' +
-                '}';
+        return "IpCheckState{" + "ip='" + ip + '\'' + ", inSpamList=" + inSpamList + ", blocked=" + blocked +
+                ", otherError=" + otherError + ", info='" + info + '\'' + '}';
     }
 }
