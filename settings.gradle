@@ -1,0 +1,5 @@
+rootProject.name = 'samlib-spider'
+include 'contract'
+include 'api'
+include 'spider'
+

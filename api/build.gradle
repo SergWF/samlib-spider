@@ -1,0 +1,30 @@
+buildscript {
+    ext {
+        springBootVersion = '1.4.1.RELEASE'
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+apply plugin: 'spring-boot'
+
+
+
+repositories {
+    mavenCentral()
+}
+
+
+dependencies {
+    compile project(":contract")
+
+    compile('org.springframework.data:spring-data-rest-hal-browser')
+    compile('org.springframework.boot:spring-boot-starter-hateoas')
+
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+    testCompile('org.springframework.restdocs:spring-restdocs-mockmvc')
+}
