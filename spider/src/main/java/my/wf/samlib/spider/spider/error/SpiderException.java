@@ -1,6 +1,8 @@
-package my.wf.samlib.spider.error;
+package my.wf.samlib.spider.spider.error;
 
-public class SpiderException extends RuntimeException {
+import my.wf.samlib.spider.error.BaseException;
+
+public class SpiderException extends BaseException {
 
     private String url;
 

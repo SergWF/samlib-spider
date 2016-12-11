@@ -1,7 +1,8 @@
 package my.wf.samlib.spider.spider.impl;
 
-import my.wf.samlib.spider.error.SpiderException;
+import my.wf.samlib.spider.error.BaseException;
 import my.wf.samlib.spider.spider.PageReader;
+import my.wf.samlib.spider.spider.error.SpiderException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

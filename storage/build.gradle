@@ -1,0 +1,9 @@
+ext {
+    jacksonVersion ='2.8.5'
+}
+dependencies {
+    compile project(":contract")
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version:jacksonVersion
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: jacksonVersion
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: jacksonVersion
+}

@@ -21,6 +21,8 @@ repositories {
 
 dependencies {
     compile project(":contract")
+    compile project(":spider")
+    compile project(":stora")
 
     compile('org.springframework.data:spring-data-rest-hal-browser')
     compile('org.springframework.boot:spring-boot-starter-hateoas')

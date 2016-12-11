@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.Set;
 
 public class SpiderEngine {
@@ -19,15 +20,9 @@ public class SpiderEngine {
     private AuthorStorage authorStorage;
     private String accessCheckPageUrl;
 
-    public void setSpider(Spider spider) {
+    public SpiderEngine(Spider spider, AuthorStorage authorStorage, String accessCheckPageUrl) {
         this.spider = spider;
-    }
-
-    public void setAuthorStorage(AuthorStorage authorStorage) {
         this.authorStorage = authorStorage;
-    }
-
-    public void setAccessCheckPageUrl(String accessCheckPageUrl) {
         this.accessCheckPageUrl = accessCheckPageUrl;
     }
 
@@ -57,7 +52,7 @@ public class SpiderEngine {
         }
     }
 
-    boolean checkServerAccessibility() {
+    boolean checkServerAccessibility(String accessCheckPageUrl) {
         if (null == accessCheckPageUrl || accessCheckPageUrl.trim().isEmpty()) {
             logger.warn("URL for checking server not found");
             return true;
@@ -72,7 +67,7 @@ public class SpiderEngine {
 
     public void checkAllAuthors() {
         logger.debug("check ipstate");
-        if (!checkServerAccessibility()) {
+        if (!checkServerAccessibility(accessCheckPageUrl)) {
             logger.warn("Checking cancelled");
             return;
         }
@@ -81,6 +76,7 @@ public class SpiderEngine {
 
     void updateAllAuthors() {
         logger.info("start author checking");
+        authorStorage.setLastCheckTime(ZonedDateTime.now());
         authorStorage.getAllAuthors().forEach(this::updateAuthor);
         logger.info("end author checking");
     }
