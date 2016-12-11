@@ -11,7 +11,6 @@ public class CronJobConfig {
 
     @Value("${cron.job.enabled}")
     private boolean cronJobEnabled;
-    private String delay = "222";
 
     @Autowired
     private SpiderEngine spiderEngine;

@@ -1,18 +1,17 @@
 buildscript {
-    ext {
-        springBootVersion = '1.4.1.RELEASE'
-    }
     repositories {
-        mavenCentral()
+        jcenter()
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
     }
 }
 
-apply plugin: 'spring-boot'
+apply plugin: 'org.springframework.boot'
 
-
+bootRepackage {
+    enabled = true
+}
 
 repositories {
     mavenCentral()
@@ -22,11 +21,9 @@ repositories {
 dependencies {
     compile project(":contract")
     compile project(":spider")
-    compile project(":stora")
+    compile project(":storage")
 
-    compile('org.springframework.data:spring-data-rest-hal-browser')
-    compile('org.springframework.boot:spring-boot-starter-hateoas')
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter'
 
-    testCompile('org.springframework.boot:spring-boot-starter-test')
-    testCompile('org.springframework.restdocs:spring-restdocs-mockmvc')
+    testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test'
 }

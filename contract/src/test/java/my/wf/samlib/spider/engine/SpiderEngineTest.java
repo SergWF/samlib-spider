@@ -23,16 +23,14 @@ public class SpiderEngineTest {
     private Author author;
 
     private String authorUrl = "http://url";
+    private String accessCheckPageUrl = "http://check";
 
     @Before
     public void setUp() throws Exception {
         authorStorage = Mockito.mock(AuthorStorage.class);
         spider = Mockito.mock(Spider.class);
-        spiderEngine = Mockito.spy(new SpiderEngine());
+        spiderEngine = Mockito.spy(new SpiderEngine(spider, authorStorage, accessCheckPageUrl));
         authorChangeHandler = Mockito.mock(AuthorChangeHandler.class);
-        spiderEngine.setAuthorStorage(authorStorage);
-        spiderEngine.setSpider(spider);
-        spiderEngine.setAccessCheckPageUrl("http://checkUrl");
         Mockito.doReturn(authorChangeHandler).when(spiderEngine).getAuthorChangeHandler(Mockito.any(Author.class));
         ipCheckState = createIpCheckState();
         author = new Author();
@@ -57,36 +55,33 @@ public class SpiderEngineTest {
     @Test
     public void checkServerAccessibilityPositive() throws Exception {
         Mockito.doReturn(ipCheckState).when(spider).readAndParseAccessCheckPage(Mockito.anyString());
-        Assert.assertTrue(spiderEngine.checkServerAccessibility(accessCheckPageUrl));
+        Assert.assertTrue(spiderEngine.checkServerAccessibility());
     }
 
     @Test
     public void checkServerAccessibilityPositiveNoCheckUrl() throws Exception {
-        spiderEngine.setAccessCheckPageUrl(null);
-        Assert.assertTrue(spiderEngine.checkServerAccessibility(accessCheckPageUrl));
-        spiderEngine.setAccessCheckPageUrl("");
-        Assert.assertTrue(spiderEngine.checkServerAccessibility(accessCheckPageUrl));
-        spiderEngine.setAccessCheckPageUrl("         ");
-        Assert.assertTrue(spiderEngine.checkServerAccessibility(accessCheckPageUrl));
+        Assert.assertTrue(new SpiderEngine(null, null, null).checkServerAccessibility());
+        Assert.assertTrue(new SpiderEngine(null, null, "").checkServerAccessibility());
+        Assert.assertTrue(new SpiderEngine(null, null, "    ").checkServerAccessibility());
     }
 
     @Test
     public void checkServerAccessibilityNegative() throws Exception {
         ipCheckState.setBlocked(true);
         Mockito.doReturn(ipCheckState).when(spider).readAndParseAccessCheckPage(Mockito.anyString());
-        Assert.assertFalse(spiderEngine.checkServerAccessibility(accessCheckPageUrl));
+        Assert.assertFalse(spiderEngine.checkServerAccessibility());
     }
 
     @Test
     public void checkAllAuthorsNotBlocked() throws Exception {
-        Mockito.doReturn(true).when(spiderEngine).checkServerAccessibility(accessCheckPageUrl);
+        Mockito.doReturn(true).when(spiderEngine).checkServerAccessibility();
         spiderEngine.checkAllAuthors();
         Mockito.verify(spiderEngine).updateAllAuthors();
     }
 
     @Test
     public void checkAllAuthorsBlocked() throws Exception {
-        Mockito.doReturn(false).when(spiderEngine).checkServerAccessibility(accessCheckPageUrl);
+        Mockito.doReturn(false).when(spiderEngine).checkServerAccessibility();
         spiderEngine.checkAllAuthors();
         Mockito.verify(spiderEngine, Mockito.never()).updateAllAuthors();
     }

@@ -1,9 +1,24 @@
-ext {
-    jacksonVersion ='2.8.5'
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
 }
+
+apply plugin: 'org.springframework.boot'
+
+bootRepackage {
+    enabled = false
+}
+
+
+
 dependencies {
     compile project(":contract")
-    compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version:jacksonVersion
-    compile group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: jacksonVersion
-    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: jacksonVersion
+
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-core'
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-annotations'
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind'
 }

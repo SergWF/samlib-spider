@@ -35,13 +35,13 @@ public class SpiderEngine {
         AuthorChangeHandler authorChangeHandler = getAuthorChangeHandler(author);
         Set<WritingData> writingDatas = spider.readAndParseAuthorsPage(author.getUrl());
         logger.debug("found {} writings on the page", writingDatas.size());
-        writingDatas.stream().forEach(authorChangeHandler::handleWritingUpdate);
+        writingDatas.forEach(authorChangeHandler::handleWritingUpdate);
         authorChangeHandler.handleDeleted(author, writingDatas);
         logUpdateStatistic(author);
         return authorStorage.saveAuthor(author);
     }
 
-    void logUpdateStatistic(Author author) {
+    private void logUpdateStatistic(Author author) {
         int newWritings =
                 (int) author.getWritings().stream().filter(writing -> writing.getChanges().contains(Changes.NEW))
                             .count();
@@ -52,7 +52,7 @@ public class SpiderEngine {
         }
     }
 
-    boolean checkServerAccessibility(String accessCheckPageUrl) {
+    boolean checkServerAccessibility() {
         if (null == accessCheckPageUrl || accessCheckPageUrl.trim().isEmpty()) {
             logger.warn("URL for checking server not found");
             return true;
@@ -67,7 +67,7 @@ public class SpiderEngine {
 
     public void checkAllAuthors() {
         logger.debug("check ipstate");
-        if (!checkServerAccessibility(accessCheckPageUrl)) {
+        if (!checkServerAccessibility()) {
             logger.warn("Checking cancelled");
             return;
         }
