@@ -23,7 +23,7 @@ dependencies {
     compile project(":spider")
     compile project(":storage")
 
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-web'
 
     testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test'
 }
